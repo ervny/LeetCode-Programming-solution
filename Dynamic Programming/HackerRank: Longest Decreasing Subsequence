@@ -1,0 +1,39 @@
+**********Problem**********
+The task is to find the length of the longest subsequence in a given array of integers such that all elements of the subsequence 
+are sorted in descending order. For example, the length of the LDS for { 15, 27, 14, 38, 63, 55, 46, 65, 85 } is 3 and 
+the longest increasing subsequence is {63, 55, 46}. If there is no decreasing subsequence, 
+return 0.
+
+**********Solution**********
+
+import java.util.*;
+public class Solution {
+
+    public static void main(String[] args) {
+        
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int input[]=new int[n];
+        for(int i=0;i<n;i++)
+            input[i]=sc.nextInt();
+        
+        int dp[]=new int[n];
+        for(int i=0;i<n;i++)
+            dp[i]=1;
+        
+        for(int i=n-2;i>=0;i--)
+        {
+            for(int j=n-1;j>i;j--)
+            {
+                if(input[i]>input[j] && dp[i]<dp[j]+1)
+                    dp[i]=dp[j]+1;
+            }
+        }
+        
+        int max=0;
+        for(int i=0;i<n;i++)
+            if(max<dp[i])
+                max=dp[i];
+        System.out.println(max);
+    }
+}
