@@ -1,0 +1,80 @@
+**********Problem**********
+Leetcode number:1305
+Given two binary search trees root1 and root2.
+
+Return a list containing all the integers from both trees sorted in ascending order.
+
+ 
+
+Example 1:
+
+
+Input: root1 = [2,1,4], root2 = [1,0,3]
+Output: [0,1,1,2,3,4]
+Example 2:
+
+Input: root1 = [0,-10,10], root2 = [5,1,7,0,2]
+Output: [-10,0,0,1,2,5,7,10]
+Example 3:
+
+Input: root1 = [], root2 = [5,1,7,0,2]
+Output: [0,1,2,5,7]
+Example 4:
+
+Input: root1 = [0,-10,10], root2 = []
+Output: [-10,0,10]
+
+**********Solution**********
+
+class Solution {
+    public List<Integer> getAllElements(TreeNode root1, TreeNode root2) {
+        
+        ArrayList<Integer> al1=new ArrayList<>();
+        ArrayList<Integer> al2=new ArrayList<>();
+        al1=helper(root1,al1);
+        al2=helper(root2, al2);
+        System.out.println(al1);
+        System.out.println(al2);
+        
+          List<Integer>  result=new ArrayList<>();
+        int pointer1=0;
+        int pointer2=0;
+        while(pointer1!=al1.size() && pointer2!=al2.size())
+        {
+            if(al1.get(pointer1)<=al2.get(pointer2))
+            {
+                result.add(al1.get(pointer1));
+                pointer1++;
+            }
+            else
+            {
+                result.add(al2.get(pointer2));
+                pointer2++;
+            }
+        }
+        
+        while(pointer1!=al1.size())
+        {
+            result.add(al1.get(pointer1));
+            pointer1++;
+        }
+        
+        while(pointer2!=al2.size())
+        {
+            result.add(al2.get(pointer2));
+            pointer2++;
+        }
+        
+      
+        return result;
+    }
+    public ArrayList helper(TreeNode root, ArrayList<Integer> al)
+    {
+        if(root==null)
+            return al;
+        helper(root.left, al);
+        al.add(root.val);
+        helper(root.right,al);
+        return al;
+    }
+}
