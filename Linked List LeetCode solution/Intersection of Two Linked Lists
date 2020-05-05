@@ -1,0 +1,25 @@
+**********Problem**********
+Leetcode number:160
+Write a program to find the node at which the intersection of two singly linked lists begins.
+
+For example, the following two linked lists:
+begin to intersect at node c1.
+**********Solution**********
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        
+        if(headA==null || headB==null)
+            return null;
+        HashSet<ListNode> hs=new HashSet<>();
+        ListNode temp=headA;
+        while(temp!=null)
+        {
+            hs.add(temp);
+            temp=temp.next;
+        }
+        temp=headB;
+        while(temp!=null && !hs.contains(temp))
+            temp=temp.next;
+        return temp;
+    }
+}
